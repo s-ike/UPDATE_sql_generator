@@ -29,6 +29,8 @@ def make_sql(filename, table, column, value, ext_where=None):
     now = dt.datetime.now()
     output_filename = prg_name + now.strftime('_%Y%m%d%H%M%S') + '.txt'
     output = make_file(output_filename)
+    if not value:
+        value = '""'
     output.write('''
 UPDATE {table}
 SET {column} = {value}
@@ -40,6 +42,7 @@ email IN (
         output.write(f'"{line}')
     output.write(
         '"sXNGzuWwOHjumVGY6KzamxKa0ivBBh@DE3KeS9WayYTvzzWQMFK0kJFXaAxd0"')  # nonce
+    output.write(')')
     if ext_where:
         output.write('\nAND ' + ext_where)
     output.write(';')
